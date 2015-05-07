@@ -41,6 +41,14 @@ MAIN CONTENT
                         <input name="country" data-transform="input-control" class="form-control" type="text" required>
                     </div>
                     <div class="form-group col-lg-12">
+                        <label>Province Name : </label>
+                        <input name="province" data-transform="input-control" class="form-control" type="text" required>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>City Name : </label>
+                        <input name="city" data-transform="input-control" class="form-control" type="text" required>
+                    </div>
+                    <div class="form-group col-lg-12">
                         <label>Organization Name : </label>
                         <input name="organization" data-transform="input-control" class="form-control" type="text" required>
                     </div>
@@ -49,8 +57,12 @@ MAIN CONTENT
                         <input name="unit" data-transform="input-control" class="form-control" type="text" required>
                     </div>
                     <div class="form-group col-lg-12">
-                        <label>Name : </label>
+                        <label>Your Name : </label>
                         <input name="name" data-transform="input-control" class="form-control" type="text" value="<?php echo $nama;?>" required>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>Your Email : </label>
+                        <input name="email" data-transform="input-control" class="form-control" type="email" value="<?php echo $this->session->userdata('username');?>" required>
                     </div>
                     <center><input type="submit" class="btn btn-danger" value="SEND"></center>
                     <br>

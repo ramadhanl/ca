@@ -15,65 +15,30 @@ class Create_csr extends CI_Controller {
 
 		include('include/File/X509.php');
 		include('include/Crypt/RSA.php');
-		$email = $this->input->post('email');
-		$name = $this->input->post('name');
 		$country = $this->input->post('country');
-		$province = $this->input->post('province');
-		$city = $this->input->post('city');
 		$organization = $this->input->post('organization');
+		$name = $this->input->post('name');
 		$unit = $this->input->post('unit');
-
-		// create private key for CA cert
-		$CAPrivKey = new Crypt_RSA();
-		extract($CAPrivKey->createKey());
-		$CAPrivKey->loadKey($privatekey);
-
-		$pubKey = new Crypt_RSA();
-		$pubKey->loadKey($publickey);
-		$pubKey->setPublicKey();
-
-		echo "the private key for the CA cert (can be discarded):\r\n\r\n";
-		echo $privatekey;
-		$privkey_ca = $privatekey;
-		echo "\r\n\r\n";
-
+		$this->load->database();
+		$this->load->model("csr");
+		$data = array(
+			"username" => $this->session->userdata('username'),
+			"name" => $this->input->post('name'),
+			"country" => $this->input->post('country'),
+			"organization" => $this->input->post('organization'),
+			"unit" => $this->input->post('unit'),
+			"status" => "unsigned"
+			);
+		$this->load->database();
+		$this->csr->add_csr($data);
+		redirect(base_url(""));
 
 
 
 
 
 
-		// create a self-signed cert that'll serve as the CA
-		$subject = new File_X509();
-		$subject->setDNProp('id-emailAddress', $email);
-		$subject->setDNProp('id-at-name', $name);
-		$subject->setDNProp('id-at-countryName', $country);
-		$subject->setDNProp('id-at-stateOrProvinceName', $province);
-		$subject->setDNProp('id-at-localityName', $city);
-		$subject->setDNProp('id-at-organizationName', $organization);
-		$subject->setDNProp('id-at-dnQualifier', $unit);
-		$subject->setPublicKey($pubKey);
-
-		$issuer = new File_X509();
-		$issuer->setPrivateKey($CAPrivKey);
-		$issuer->setDN($CASubject = $subject->getDN());
-
-		$x509 = new File_X509();
-		$x509->makeCA();
-
-		$result = $x509->sign($issuer, $subject);
-		echo "the CA cert to be imported into the browser is as follows:\r\n\r\n";
-		//echo $x509->saveX509($result);
-		$ca_cert = $x509->saveX509($result);
-		echo $ca_cert;
-		echo "\r\n\r\n";
-
-
-
-
-
-
-
+/*
 
 		// create private key / x.509 cert for stunnel / website
 		$privKey = new Crypt_RSA();
@@ -197,7 +162,7 @@ openssl_public_encrypt($data, $encrypted, $pubKey);
 openssl_private_decrypt($encrypted, $decrypted, $privKey);
 
 echo $decrypted;*/
-	redirect(base_url("/list_csr"));
+	
 	}
 	}
 ?>

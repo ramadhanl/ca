@@ -19,19 +19,20 @@ class Profiles extends CI_Controller {
 			);
 		$this->load->database();
 		$this->user->update_user($data);
-		$config['upload_path'] = 'C:/xampp/htdocs/quiz/assets/img/profile_pict/';
+		$config['upload_path'] = 'C:/xampp/htdocs/ca/assets/img/profile_pict';
 		$config['allowed_types'] = 'jpg';
-		$config['max_size']	= '300';
+		$config['max_size']	= '800';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
 		$config['overwrite']  = TRUE;
 		$file = $_FILES['userfile']['name'];
-		$ext = substr(strrchr($file, '.'), 1);
-		$new_name = $this->session->userdata('username').".$ext";
+		//$ext = substr(strrchr($file, '.'), 1);
+		$new_name = $this->session->userdata('username').".jpg";
 		$config['file_name'] = $new_name;
 		$config['convert_dots'] = FALSE;
 		$this->load->library('upload',$config);
 		$this->upload->initialize($config);
+		$this->upload->do_upload();
 		if(!$this->upload->do_upload()){
 			$this->load->model("user");
 			$this->load->database();
@@ -60,11 +61,11 @@ class Profiles extends CI_Controller {
        );
        $this->session->set_userdata($sess_array);
 		
-		redirect(base_url("profiles"));
+		//redirect(base_url("profiles"));
 	}
 	public function upload()
 	{
-		$config['upload_path'] = 'C:/xampp/htdocs/quiz/images/';
+		$config['upload_path'] = 'C:/xampp/htdocs/ca/images/';
 		$config['allowed_types'] = 'jpg|jpeg|gif|png';
 		$new_name = $this->session->userdata('username');
 		echo $new_name;

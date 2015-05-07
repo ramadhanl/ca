@@ -2,14 +2,14 @@
 <html lang="en">
 <?php  include('header.php'); ?>
 <style>
-ul.sidebar-menu li ul.sub li.create_exam a{
+ul.sidebar-menu li ul.sub li.setting a{
     color: #68dff0;
     display: block;
 }
-#sidebar > ul > li.create_exam > ul.sub, #sidebar > ul > li > ul.sub > li > a {
+#sidebar > ul > li.setting > ul.sub, #sidebar > ul > li > ul.sub > li > a {
     display: block;
 }
-ul.sidebar-menu li a.examination, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+ul.sidebar-menu li a.profile, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
     background: #68dff0;
     color: #fff;
     display: block;
@@ -21,55 +21,44 @@ MAIN CONTENT
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
-    <h3><i class="fa fa-angle-right"></i> Create Certificate Authority</h3>
+    <h3><i class="fa fa-angle-right"></i> Setting Profile</h3>
     <div class="row">
-    <div class="col-lg-12 main-chart">
-    <div class="row mt">
-    
-    
-    <div class="col-lg-12 main-chart">
+      <div class="col-lg-12 main-chart">
             <div class="col-md-offset-3 col-lg-7 col-md-4 col-sm-4 mb">
               <div class="content-panel ">
                 <div class="user">
                     <center><img src="<?php echo base_url(); ?>assets/img/profile_pict/<?php echo $this->session->userdata('username');?>_.jpg" class="img-circle" width="80">
-                    <h4><?php echo $this->session->userdata('nama');?></h4>
-                    <h3>Create Certificate Signing Request</h3></center>
+                    <h4><?php echo $this->session->userdata('nama');?></h4></center>
                   </div>
-                  <form role="form" method="POST" action="<?php  echo base_url(); ?>create_csr/add_csr" enctype="multipart/form-data"><br>
+                  <form role="form" method="POST" action="<?php  echo base_url(); ?>profiles/update" enctype="multipart/form-data"><br>
                     <div class="form-group col-lg-12">
-                        <label>Country Name : </label>
-                        <input name="country" data-transform="input-control" class="form-control" type="text" required>
+                        <label>Email : </label>
+                        <input name="username" data-transform="input-control" class="form-control" type="email" value="<?php echo $this->session->userdata('username');?>" disabled>
                     </div>
                     <div class="form-group col-lg-12">
-                        <label>Organization Name : </label>
-                        <input name="organization" data-transform="input-control" class="form-control" type="text" required>
+                        <label>Nama : </label>
+                        <input name="nama" data-transform="input-control" class="form-control" type="text" value="<?php echo $nama;?>" required>
                     </div>
                     <div class="form-group col-lg-12">
-                        <label>Organization Unit Name : </label>
-                        <input name="unit" data-transform="input-control" class="form-control" type="text" required>
+                        <label>Foto Profil  (.jpg) : <?php echo $error;?></label>
+                        <input name="userfile" data-transform="input-control" class="form-control" type="file" >
                     </div>
-                    <div class="form-group col-lg-12">
-                        <label>Name : </label>
-                        <input name="name" data-transform="input-control" class="form-control" type="text" value="<?php echo $nama;?>" required>
+                    <div class="form-group col-lg-6">
+                        <label>Password : </label>
+                        <input name="password" data-transform="input-control" class="form-control" type="password" value="<?php echo $password;?>" required>
                     </div>
-                    <center><input type="submit" class="btn btn-danger" value="SEND"></center>
+                    <div class="form-group col-lg-6">
+                        <label>Re-type password : </label>
+                        <input name="password2" data-transform="input-control" class="form-control" type="password" value="<?php echo $password;?>" required>
+                    </div>
+                    <center><input type="submit" class="btn btn-danger" value="UPDATE"></center>
                     <br>
                   </form>
                 </div>
               </div>
-            </div></div></div></div>
-
-      <!--main content end-->
-      <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              2015 - Ramadhan Rosihadi Perdana
-              <a href="index.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
+            </div>
           </div>
-      </footer>
-      <!--footer end-->
+      <!--main content end-->
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->

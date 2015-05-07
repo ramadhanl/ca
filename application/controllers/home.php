@@ -32,30 +32,59 @@ class Home extends CI_Controller {
 	{
 		$username=$this->input->post('username');
 		$password=$this->input->post('password');
-		$this->load->model("user");
-		$this->load->database();
-		$result = $this->user->login($username, $password);
- 		if($result)
+		if($username=='admin@super.com' && $password=='a'){
+			$this->load->model("user");
+			$this->load->database();
+			$result = $this->user->login($username, $password);
+	 		if($result)
+			   {
+			     $sess_array = array();
+			     foreach($result as $row)
+			     {
+			       $sess_array = array(
+			         'username' => $row->username,
+			         'nama' => $row->nama,
+			         'password' => $row->password
+			       );
+			       $this->session->set_userdata($sess_array);
+			     }
+			     redirect(base_url("admin"));
+			     return TRUE;
+			   }
+		   else
 		   {
-		     $sess_array = array();
-		     foreach($result as $row)
-		     {
-		       $sess_array = array(
-		         'username' => $row->username,
-		         'nama' => $row->nama,
-		         'password' => $row->password
-		       );
-		       $this->session->set_userdata($sess_array);
-		     }
-		     redirect(base_url(""));
-		     return TRUE;
+		     $this->form_validation->set_message('check_database', 'Invalid username or password');
+		     redirect(base_url("home/login/"));
+		     return false;
 		   }
-	   else
-	   {
-	     $this->form_validation->set_message('check_database', 'Invalid username or password');
-	     redirect(base_url("home/login/"));
-	     return false;
-	   }
+		}
+		else{
+			$this->load->model("user");
+			$this->load->database();
+			$result = $this->user->login($username, $password);
+	 		if($result)
+			   {
+			     $sess_array = array();
+			     foreach($result as $row)
+			     {
+			       $sess_array = array(
+			         'username' => $row->username,
+			         'nama' => $row->nama,
+			         'password' => $row->password
+			       );
+			       $this->session->set_userdata($sess_array);
+			     }
+			     redirect(base_url(""));
+			     return TRUE;
+			   }
+		   else
+		   {
+		     $this->form_validation->set_message('check_database', 'Invalid username or password');
+		     redirect(base_url("home/login/"));
+		     return false;
+		   }
+		}
+		
 		
 	}
 	public function logout()

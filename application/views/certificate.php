@@ -1,64 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php  include('header.php'); ?>
-<style>
-ul.sidebar-menu li ul.sub li.create_exam a{
-    color: #68dff0;
-    display: block;
-}
-#sidebar > ul > li.create_exam > ul.sub, #sidebar > ul > li > ul.sub > li > a {
-    display: block;
-}
-ul.sidebar-menu li a.examination, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    background: #68dff0;
-    color: #fff;
-    display: block;
-}
-</style>
+      
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
-    <h3><i class="fa fa-angle-right"></i> Create Certificate Authority</h3>
     <div class="row">
-    <div class="col-lg-12 main-chart">
-    <div class="row mt">
-    
-    
-    <div class="col-lg-12 main-chart">
-            <div class="col-md-offset-3 col-lg-7 col-md-4 col-sm-4 mb">
-              <div class="content-panel ">
-                <div class="user">
-                    <center><img src="<?php echo base_url(); ?>assets/img/profile_pict/<?php echo $this->session->userdata('username');?>_.jpg" class="img-circle" width="80">
-                    <h4><?php echo $this->session->userdata('nama');?></h4>
-                    <h3>Create Certificate Signing Request</h3></center>
-                  </div>
-                  <form role="form" method="POST" action="<?php  echo base_url(); ?>create_csr/add_csr" enctype="multipart/form-data"><br>
-                    <div class="form-group col-lg-12">
-                        <label>Country Name : </label>
-                        <input name="country" data-transform="input-control" class="form-control" type="text" required>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <label>Organization Name : </label>
-                        <input name="organization" data-transform="input-control" class="form-control" type="text" required>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <label>Organization Unit Name : </label>
-                        <input name="unit" data-transform="input-control" class="form-control" type="text" required>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <label>Name : </label>
-                        <input name="name" data-transform="input-control" class="form-control" type="text" value="<?php echo $nama;?>" required>
-                    </div>
-                    <center><input type="submit" class="btn btn-danger" value="SEND"></center>
-                    <br>
-                  </form>
-                </div>
-              </div>
-            </div></div></div></div>
-
+      <div class="col-lg-12 main-chart">
+      <center><h1>Welcome <?php echo $this->session->userdata('nama');?> </h1></center>
+      <center><h1>Certificate</h1></center>
+      <div class="col-lg-12">
+             <div class="content-panel">
+                          <section id="unseen">
+                          <?php echo $certificate;?>
+                  </div><!-- /content-panel -->
+               </div></div></div><!-- /col-lg-4 -->
+      </div></div>
       <!--main content end-->
       <!--footer start-->
       <footer class="site-footer">
@@ -88,7 +48,30 @@ MAIN CONTENT
     <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
 
-    <!--script for this page-->    
+    <!--script for this page-->
+   
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+        var unique_id = $.gritter.add({
+            // (string | mandatory) the heading of the notification
+            title: 'Welcome to CA(Certificate Authority)!',
+            // (string | mandatory) the text inside the notification
+            text: 'Silahkan memilih menu yang ada di side bar kiri. Dan jangan lupa logout apabila telah selesai semuanya. :)',
+            // (string | optional) the image to display on the left
+            image: 'assets/img/ui-sam.jpg',
+            // (bool | optional) if you want it to fade out on its own or just sit there
+            sticky: false,
+            // (int | optional) the time you want it to be alive for before fading out
+            time: '10',
+            // (string | optional) the class name you want to apply to that specific message
+            class_name: 'my-sticky-class'
+        });
+
+        return false;
+        });
+    </script>
+    
     <script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});

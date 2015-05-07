@@ -2,11 +2,11 @@
 <html lang="en">
 <?php  include('header.php'); ?>
 <style>
-ul.sidebar-menu li ul.sub li.create_exam a{
+ul.sidebar-menu li ul.sub li.available_exam a{
     color: #68dff0;
     display: block;
 }
-#sidebar > ul > li.create_exam > ul.sub, #sidebar > ul > li > ul.sub > li > a {
+#sidebar > ul > li.available_exam > ul.sub, #sidebar > ul > li > ul.sub > li > a {
     display: block;
 }
 ul.sidebar-menu li a.examination, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
@@ -21,44 +21,58 @@ MAIN CONTENT
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
-    <h3><i class="fa fa-angle-right"></i> Create Certificate Authority</h3>
+    <h3><i class="fa fa-angle-right"></i> List CSR </h3>
     <div class="row">
-    <div class="col-lg-12 main-chart">
-    <div class="row mt">
-    
-    
-    <div class="col-lg-12 main-chart">
-            <div class="col-md-offset-3 col-lg-7 col-md-4 col-sm-4 mb">
-              <div class="content-panel ">
-                <div class="user">
-                    <center><img src="<?php echo base_url(); ?>assets/img/profile_pict/<?php echo $this->session->userdata('username');?>_.jpg" class="img-circle" width="80">
-                    <h4><?php echo $this->session->userdata('nama');?></h4>
-                    <h3>Create Certificate Signing Request</h3></center>
-                  </div>
-                  <form role="form" method="POST" action="<?php  echo base_url(); ?>create_csr/add_csr" enctype="multipart/form-data"><br>
-                    <div class="form-group col-lg-12">
-                        <label>Country Name : </label>
-                        <input name="country" data-transform="input-control" class="form-control" type="text" required>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <label>Organization Name : </label>
-                        <input name="organization" data-transform="input-control" class="form-control" type="text" required>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <label>Organization Unit Name : </label>
-                        <input name="unit" data-transform="input-control" class="form-control" type="text" required>
-                    </div>
-                    <div class="form-group col-lg-12">
-                        <label>Name : </label>
-                        <input name="name" data-transform="input-control" class="form-control" type="text" value="<?php echo $nama;?>" required>
-                    </div>
-                    <center><input type="submit" class="btn btn-danger" value="SEND"></center>
-                    <br>
-                  </form>
-                </div>
-              </div>
-            </div></div></div></div>
-
+      <div class="col-lg-12 main-chart">
+      <center><h1>List CSR(Certificate Signing Request)</h1></center>
+      <div class="col-lg-12">
+                      <div class="content-panel">
+                          <section id="unseen">
+                            <table class="table table-bordered table-striped table-condensed">
+                              <thead>
+                              <tr>
+                                  <th>No</th>
+                                  <th>Email</th>
+                                  <th>Name</th>
+                                  <th>Country</th>
+                                  <th>Province</th>
+                                  <th>City</th>
+                                  <th>Organization</th>
+                                  <th>Unit</th>
+                                  <th>Confirmation</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <?php 
+                              $mysqli = new mysqli('localhost','root','','ca');
+                              $sql = "SELECT * from csr";
+                              $count = 0;
+                              $result = $mysqli->query($sql);
+                              while ($row = $result->fetch_array(MYSQLI_BOTH))
+                              {
+                                  $count++;
+                                  echo('<tr><td>'); echo $count; echo('</td>');
+                                  echo('<td>'); echo $row['email']; echo('</td>');
+                                  echo('<td>'); echo $row['name']; echo('</td>');
+                                  echo('<td>'); echo $row['country']; echo('</td>');
+                                  echo('<td>'); echo $row['province']; echo('</td>');
+                                  echo('<td>'); echo $row['city']; echo('</td>');
+                                  echo('<td>'); echo $row['organization']; echo('</td>');
+                                  echo('<td>'); echo $row['unit']; echo('</td>');
+                                  echo('<td>'); echo ('
+                                    <div>
+                                        <a href="');echo base_url(); echo "admin/acc_csr/"; $row['email']; echo('"><button class="btn btn-success btn-xs fa fa-check"></button></a>
+                                         - 
+                                        <a href="');echo base_url(); echo "admin/del_csr/"; $row['email']; echo('"><button class="btn btn-danger btn-xs fa fa-trash-o"></button></a>
+                                    </div>
+                                    '); echo('</td></tr>');
+                              }
+                              ?>
+                              </tbody>
+                          </table>
+                          </section>
+                  </div><!-- /content-panel -->
+               </div></div></div><!-- /col-lg-4 -->     
       <!--main content end-->
       <!--footer start-->
       <footer class="site-footer">
