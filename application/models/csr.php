@@ -8,7 +8,7 @@ class csr extends CI_Model{
 		$this->db->insert("csr",$data);
 	}
 	public function sign_csr($data){
-		$this->db->update("csr",$data);
+		//$this->db->update("csr",$data);
 	}
 
 	public function list_csr($data){
